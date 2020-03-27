@@ -1,0 +1,81 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>{% block title %}{% endblock %}</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        {% block styles %}
+            <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.min.css') }}">
+            <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+        {% endblock %}
+
+        <script src="{{ url_for('static', filename='js/vendor/modernizr-2.8.3-respond-1.4.2.min.js') }}"></script>
+    </head>
+    <body>
+
+        <div class="header-container">
+            <header class="wrapper clearfix">
+                <a href="{{ url_for('index') }}"><h1 class="title">Thermos</h1></a>
+                <nav>
+                    <ul>
+                        <li><a href="{{ url_for('add') }}">Add URL</a></li>
+                        {% if current_user.is_authenticated %}
+                            <li>
+                                <a href="{{ url_for('user', username=current_user.username) }}">My Links</a>
+                            </li>
+                            <li><a href="{{ url_for('logout') }}">Sign Out</a></li>
+                        {% else %}
+                            <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
+                            <li><a href="{{ url_for('login') }}">Sign In</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </header>
+        </div>
+
+        <div class="main-container">
+            <div class="main wrapper clearfix">
+
+                <article class="flashes">
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <ul>
+                                {% for message in messages %}
+                                    <li>{{ message }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    {% endwith %}
+                </article>
+
+                {% block content %}
+                {% endblock %}
+
+                {% block sidebar %}
+                <aside>
+                    <h3>About</h3>
+                    <p>This is a Simple Social Bookmarking site where you can bookmark all your important sites as much as you want and view/edit/delete it whenever you want.</p>
+                    <p>This website is being developed by Aditya Kshettri. Thank you for visiting my website. You can check out more of my projects <a href="https://github.com/AdityaKshettri">here</a>.</p>
+                </aside>
+                {% endblock %}
+
+            </div> <!-- #main -->
+        </div> <!-- #main-container -->
+
+        <div class="footer-container">
+            <footer class="wrapper">
+                <h3>Author - Aditya Kshettri</h3>
+            </footer>
+        </div>
+
+        {{ moment.include_jquery() }}
+        {{ moment.include_moment() }}
+
+        {% block scripts %}
+        {% endblock %}
+
+    </body>
+</html>

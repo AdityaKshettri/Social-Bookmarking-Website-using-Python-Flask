@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% from "form_macros.html" import render_field %}
+
+{% block title %}
+    Thermos - Add a URL
+{% endblock %}
+
+{% block content %}
+    <section>
+        <h1>Add a new URL</h1>
+        <form action="" method="POST">
+            {{form.hidden_tag()}}
+            <table>
+                {{ render_field(form.url, size=50) }}
+                {{ render_field(form.description, size=50) }}
+                {{ render_field(form.tags, size=50) }}
+                <tr>
+                    <td></td>
+                    <td><button type="submit">Submit</button></td>
+                </tr>
+            </table>
+        </form>
+    </section>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

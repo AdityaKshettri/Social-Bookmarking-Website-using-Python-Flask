@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Thermos - Welcome
+{% endblock %}
+
+{% block content %}
+    <article>
+        <header>
+            <h1>Welcome</h1>
+            <hr>
+            <p>Thermos is a simple social bookmarking site.</p>
+            <p>Already have an account, check it out <a href="{{ url_for('login') }}">here</a></p>
+            <p>Don't have an account ? Create one by clicking <a href="{{ url_for('signup') }}">here</a></p>
+        </header>
+        <hr>
+        <br>
+        <section>
+            <h1>Recently Added</h1>
+            {% if new_bookmarks.count()>0 %}
+                {% with bookmarks=new_bookmarks %}
+                    {% include "bookmark_list.html" %}
+                {% endwith %}
+            {% else %}
+                No bookmarks have been added yet.
+            {% endif %}
+        </section>
+    </article>
+{% endblock %}
